@@ -1,19 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const PersonnelServiceType = require("./personnel_service_type.js");
-const ServiceType = require('./service_type.js');
-
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'database.sqlite'
 });
 
-
 const Personnel = sequelize.define('Personnel', {
   id: {
-    primaryKey:true,
+    primaryKey: true,
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true 
+    autoIncrement: true
   },
   phone: {
     type: DataTypes.STRING,
@@ -22,15 +18,8 @@ const Personnel = sequelize.define('Personnel', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true 
+    unique: true
   }
 });
-
-(async () => {
-  await Personnel.sync();
-  console.log('Personnel model synchronized with database');
-})();
-
-Personnel.belongsToMany(ServiceType, { through: PersonnelServiceType, foreignKey: 'personnel_id' });
 
 module.exports = Personnel;
