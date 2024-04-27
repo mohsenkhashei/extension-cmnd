@@ -25,7 +25,10 @@ router.post("/email-test",function(req, res, next) {
               console.log(info);
          });
          
-         res.end();
+        return res.json({
+            success:true,
+            message:"Email sent successfully"
+        })
 });
 
 
