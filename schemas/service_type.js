@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const PersonnelServiceType = require("./personnel_service_type");
+const Personnel = require('./personnel');
+
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -18,6 +20,5 @@ const ServiceType = sequelize.define('ServiceType', {
   }
 }); 
 
-ServiceType.belongsToMany(Personnel, { through: PersonnelServiceType, foreignKey: 'service_type_id' });
 
 module.exports = ServiceType;

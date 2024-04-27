@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const PersonnelServiceType = require("./personnel_service_type.js")
+const PersonnelServiceType = require("./personnel_service_type.js");
+const ServiceType = require('./service_type.js');
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -8,8 +9,9 @@ const sequelize = new Sequelize({
 
 
 const Personnel = sequelize.define('Personnel', {
-  personnel_code: {
-    type: DataTypes.STRING,
+  id: {
+    primaryKey:true,
+    type: DataTypes.INTEGER,
     allowNull: false,
     unique: true 
   },
