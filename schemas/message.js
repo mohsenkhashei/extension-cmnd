@@ -1,6 +1,5 @@
-// Import Sequelize
 const { Sequelize, DataTypes } = require('sequelize');
-const ServiceType = require('./serviceType'); 
+const ServiceType = require('./serviceType');
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',

@@ -1,4 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
+const Task = require("./task");
+
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'database.sqlite'
