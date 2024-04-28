@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Task Assignment</title>
+</head>
+
+<body>
+    <p>Hello,</p>
+    <p>There is a new task:</p>
+    <ul>
+        <li>Room ID: <%= room_id %>
+        </li>
+        <li>Service Type: <%= title %>
+        </li>
+        <li>Task Token: <%= token %>
+        </li>
+    </ul>
+    <p>Please click on the following link to claim the task:</p>
+    <p>
+        <a href="http://localhost:8001/api/v1/claim-task?token=<%= token %>&p_id=<%= personnel_id %>">
+            Claim Task
+        </a>
+    </p>
+</body>
+
+</html>
