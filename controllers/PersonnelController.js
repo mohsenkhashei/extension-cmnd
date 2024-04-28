@@ -1,7 +1,11 @@
 const ServiceType = require('../schemas/service_type');
-const Personnel = require("../schemas/personnel.js");
+const Personnel = require("../schemas/personnel");
+const Message = require("../schemas/message");
+const Task = require("../schemas/task.js");
+require("../schemas/associations.js");
 const transporter = require("../services/email.js");
 const { Sequelize } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   call: async function(req, res, next) {
@@ -17,16 +21,15 @@ module.exports = {
               model: ServiceType,
               where: { id: serviceType.id }
           }]
-      });
-
+        });
+console.log(serviceType.id);
         const message = await Message.findOne({ where: { service_type_id: serviceType.id } });
         if (!message) throw new Error('Message not found for this service type');
 
         const newTask = await Task.create({
-          token: generateUniqueToken(), 
-          room_id: roomId,
-          service_type_id: serviceTypeModel.id,
-          personnel_id: personnelModel.id
+          token: uuidv4(), 
+          room_id: room_id,
+          service_type_id: serviceType.id 
         });
 
       const emailContent = `
@@ -64,10 +67,5 @@ module.exports = {
       });
     }
   },
-  test: function(req, res, next) {
-    return res.json({
-      success: true,
-      message: "what the"
-    });
-  }
+
 };

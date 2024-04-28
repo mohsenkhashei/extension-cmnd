@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('./sequelize');
-const ServiceType = require('./ServiceType');
-const Personnel = require('./Personnel');
+const ServiceType = require('./service_type');
+const Personnel = require('./personnel');
 
-const Task = sequelize.define('Task', {
+const Task = sequelize.define('Tasks', {
   token: {
     type: DataTypes.UUID,
     allowNull: false,
