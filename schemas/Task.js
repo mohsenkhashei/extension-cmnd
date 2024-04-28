@@ -38,18 +38,6 @@ const Task = sequelize.define("Tasks", {
     type: DataTypes.DATE,
     allowNull: true,
   },
-  completed_at: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-  createdAt: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
 });
 
 Task.belongsTo(ServiceType, { foreignKey: "service_type_id" });

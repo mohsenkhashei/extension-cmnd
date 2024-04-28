@@ -102,22 +102,6 @@ module.exports = {
       const mappedTasks = tasks.map((task) => ({
         service_type: task.ServiceType.title,
         room_id: task.room_id,
-        created_at: task.created_at.toLocaleString("en-GB", {
-          timeZone: "UTC",
-          day: "numeric",
-          month: "numeric",
-          year: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-        }),
-        updated_at: task.updated_at.toLocaleString("en-GB", {
-          timeZone: "UTC",
-          day: "numeric",
-          month: "numeric",
-          year: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-        }),
       }));
 
       return res.json({
