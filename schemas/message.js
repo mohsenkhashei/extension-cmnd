@@ -1,14 +1,9 @@
-// Import Sequelize
 const { Sequelize, DataTypes } = require('sequelize');
-const ServiceType = require('./serviceType'); 
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'database.sqlite'
-});
+const ServiceType = require('./service_type');
+const sequelize = require('./sequelize');
 
 // Define the Message model
-const Message = sequelize.define('Message', {
+const Message = sequelize.define('Messages', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
