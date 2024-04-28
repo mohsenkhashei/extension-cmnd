@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('./sequelize');
+const Personnel = require('./personnel');
+const ServiceType = require('./service_type');
 
 const PersonnelServiceType = sequelize.define('PersonnelServiceTypes', {
     id: {
@@ -11,7 +13,7 @@ const PersonnelServiceType = sequelize.define('PersonnelServiceTypes', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'ServiceTypes',
+            model: ServiceType,
             key: 'id'
         }
     },
@@ -19,7 +21,7 @@ const PersonnelServiceType = sequelize.define('PersonnelServiceTypes', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Personnel',
+            model: Personnel,
             key: 'id'
         }
     }

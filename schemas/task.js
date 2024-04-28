@@ -25,7 +25,7 @@ const Task = sequelize.define('Tasks', {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-            model: 'Personnel',
+            model: 'Personnels',
             key: 'id'
         }
 },
