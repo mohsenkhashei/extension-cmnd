@@ -1,11 +1,6 @@
+// ServiceType.js
 const { Sequelize, DataTypes } = require('sequelize');
-const Personnel = require("./personnel.js");
-const Task = require("./task.js");
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'database.sqlite'
-});
+const sequelize = require('./sequelize');
 
 const ServiceType = sequelize.define('ServiceTypes', {
   id: {
@@ -18,6 +13,5 @@ const ServiceType = sequelize.define('ServiceTypes', {
     allowNull: false
   }
 });
-
 
 module.exports = ServiceType;

@@ -1,12 +1,8 @@
-
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'database.sqlite'
-  });
+const sequelize = require('./sequelize');
+const ServiceType = require('./ServiceType');
 const Personnel = require('./personnel');
-const ServiceType = require('./service_type');
-const PersonnelServiceType = require('./personnel_service_type');
+const PersonnelServiceType = require('./PersonnelServiceType');
+
 
 Personnel.belongsToMany(ServiceType, { through: PersonnelServiceType, foreignKey: 'personnel_id' });
 ServiceType.belongsToMany(Personnel, { through: PersonnelServiceType, foreignKey: 'service_type_id' });

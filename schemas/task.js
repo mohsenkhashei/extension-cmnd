@@ -1,11 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const ServiceType = require("./service_type.js");
-const Personnel = require("./personnel.js");
-
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'database.sqlite'
-});
+const sequelize = require('./sequelize');
+const ServiceType = require('./ServiceType');
+const Personnel = require('./Personnel');
 
 const Task = sequelize.define('Task', {
   token: {
@@ -19,19 +15,11 @@ const Task = sequelize.define('Task', {
   },
   service_type_id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    references:{
-        model:'ServiceTypes',
-        key:'id'
-    }
+    allowNull: false
   },
   personnel_id: {
     type: DataTypes.INTEGER, 
-    allowNull: false, 
-    references: { 
-      model: 'Personnel',
-      key: 'id'
-    }
+    allowNull: false
   },
   claimed_at: {
     type: DataTypes.DATE,
@@ -39,11 +27,7 @@ const Task = sequelize.define('Task', {
   }
 });
 
-
-
-(async () => {
-  await Task.sync(); 
-  console.log('Tasks table synchronized with database');
-})();
+Task.belongsTo(ServiceType, { foreignKey: 'service_type_id' });
+Task.belongsTo(Personnel, { foreignKey: 'personnel_id' });
 
 module.exports = Task;
