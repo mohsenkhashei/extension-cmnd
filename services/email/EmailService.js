@@ -12,7 +12,6 @@ class EmailService {
   }
 
   async sendMail() {
-    console.log(__dirname);
     const htmlContent = await ejs.renderFile(
       path.join(__dirname, this.view),
       this.body

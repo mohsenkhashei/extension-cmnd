@@ -17,7 +17,6 @@ function CustomErrorHandler(err, req, res, next) {
       Object.keys(customError.errors).forEach((key) => {
         validationErrors.push(customError.errors[key].message);
       });
-
       customError = new CustomError(validationErrors, 400);
       break;
 
@@ -25,7 +24,7 @@ function CustomErrorHandler(err, req, res, next) {
       customError = new CustomError("Internal Service Error", 500);
   }
 
-  return res.status(customError.status).json({
+  return res.status(customError.status ?? 500).json({
     success: false,
     error: [...customError.message.split(",")],
   });
