@@ -15,12 +15,20 @@ const Task = sequelize.define('Tasks', {
   },
   service_type_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  personnel_id: {
-    type: DataTypes.INTEGER, 
-    allowNull: false
-  },
+    allowNull: true,
+    references: {
+        model: 'ServiceTypes',
+        key: 'id'
+    }
+},
+    personnel_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Personnel',
+            key: 'id'
+        }
+},
   claimed_at: {
     type: DataTypes.DATE,
     allowNull: true

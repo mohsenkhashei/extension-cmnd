@@ -22,7 +22,7 @@ module.exports = {
               where: { id: serviceType.id }
           }]
         });
-console.log(serviceType.id);
+
         const message = await Message.findOne({ where: { service_type_id: serviceType.id } });
         if (!message) throw new Error('Message not found for this service type');
 
@@ -37,7 +37,7 @@ console.log(serviceType.id);
       <p>There is a new task:</p>
       <ul>
         <li>Room ID: ${room_id}</li>
-        <li>Service Type: ${serviceTypeModel.title}</li>
+        <li>Service Type: ${serviceType.title}</li>
         <li>Task Token: ${newTask.token}</li>
       </ul>
       <p>Please click on the following link to claim the task:</p>
@@ -60,7 +60,7 @@ console.log(serviceType.id);
     });
 
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.error('An error occurred:', error.message);
       return res.status(500).json({
         success: false,
         message: "Internal server error."
