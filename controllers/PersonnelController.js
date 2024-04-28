@@ -39,11 +39,17 @@ module.exports = {
         service_type_id: serviceType.id,
       });
 
+      let links = [];
+
       targetPersonnelGroup.map(async (personnel) => {
         const URL =
           process.env.NODE_ENV == "development"
             ? process.env.LOCAL_URL
             : process.env.PUBLIC_URL;
+
+        links.push(
+          `${URL}/claim-task?token=${newTask.token}&p_id=${personnel.id}`
+        );
 
         const emailContent = `
           <p>Hello,</p>
@@ -56,6 +62,7 @@ module.exports = {
           <p>Please click on the following link to claim the task:</p>
           <p><a href="${URL}/claim-task?token=${newTask.token}&p_id=${personnel.id}">Claim Task</a></p>`;
 
+        console.log(URL);
         await transporter.sendMail({
           to: personnel.email,
           subject: "New Task Assignment",
@@ -66,6 +73,7 @@ module.exports = {
       return res.json({
         success: true,
         message: "Task created and emails sent successfully.",
+        links,
       });
     } catch (error) {
       return res.status(500).json({

@@ -38,7 +38,10 @@ const Task = sequelize.define("Tasks", {
     type: DataTypes.DATE,
     allowNull: true,
   },
-
+  completed_at: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
