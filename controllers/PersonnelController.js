@@ -1,9 +1,9 @@
-const ServiceType = require("../schemas/service_type");
-const Personnel = require("../schemas/personnel");
-const Message = require("../schemas/message");
-const Task = require("../schemas/task.js");
-require("../schemas/associations.js");
-const transporter = require("../services/email.js");
+const ServiceType = require("../schemas/ServiceType");
+const Personnel = require("../schemas/Personnel");
+const Message = require("../schemas/Message");
+const Task = require("../schemas/Task.js");
+require("../schemas/Associations.js");
+const transporter = require("../config/email.js");
 const { Sequelize } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 
@@ -13,7 +13,11 @@ module.exports = {
 
     try {
       const serviceType = await ServiceType.findOne({
-        where: { title: { [Sequelize.Op.like]: `%${service_type}%` } },
+        where: Sequelize.where(
+          Sequelize.fn("LOWER", Sequelize.col("title")),
+          "LIKE",
+          `%${service_type.toLowerCase()}%`
+        ),
       });
       if (!serviceType) throw new Error("Service type not found");
 
@@ -87,13 +91,13 @@ module.exports = {
       const task = await Task.findOne({ where: { token: token } });
 
       if (!task) {
-        return res.send(404).json("Task is not found.");
+        return res.status(404).json("Task is not found.");
       }
 
       if (task.personnel_id != null && task.claimed_at != null) {
         return res
           .status(404)
-          .send("Task is already assigned to someone else.");
+          .json("Task is already assigned to someone else.");
       }
 
       const serviceType = await ServiceType.findByPk(task.service_type_id);
@@ -105,7 +109,7 @@ module.exports = {
       await task.update({ claimed_at: Date.now(), personnel_id: p_id });
       const message = `${serviceType.title} has been assigned to ${personnel.id}`;
 
-      return res.send(200).json({ success: true, message: message });
+      return res.status(200).json({ success: true, message: message });
     } catch (error) {
       return res.status(500).send("Internal server error.");
     }
