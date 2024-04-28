@@ -8,12 +8,12 @@ const Room = sequelize.define("Rooms", {
     autoIncrement: true,
   },
   lat: {
-    type: DataTypes.UUID,
+    type: DataTypes.FLOAT,
     allowNull: false,
     unique: true,
   },
   lng: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   created_at: {

@@ -45,13 +45,36 @@ module.exports = {
     }
   },
 
+  complete: async function (req, res, next) {
+    try {
+      const task_id = req.params.task_id;
+      const task = Task.findByPk(task_id);
+
+      if (!task) {
+        return res.status(404).json({
+          success: false,
+          message: "Task not found",
+        });
+      }
+
+      task.update({
+        completed_at: Date.now(),
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
+
   getTasks: async function (req, res, next) {
     try {
       const personnel_id = req.params.personnel_id;
       const secret = req.params.secret;
 
       if (secret != "admin123") {
-        return res.status(401).json({
+        return res.status(200).json({
           success: false,
           message: "You are not allowed to access this",
         });
@@ -69,10 +92,36 @@ module.exports = {
         where: {
           personnel_id: personnel_id,
         },
+        include: {
+          model: ServiceType,
+          attributes: ["title"],
+          as: "ServiceType",
+        },
       });
 
+      const mappedTasks = tasks.map((task) => ({
+        service_type: task.ServiceType.title,
+        room_id: task.room_id,
+        created_at: task.created_at.toLocaleString("en-GB", {
+          timeZone: "UTC",
+          day: "numeric",
+          month: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        }),
+        updated_at: task.updated_at.toLocaleString("en-GB", {
+          timeZone: "UTC",
+          day: "numeric",
+          month: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        }),
+      }));
+
       return res.json({
-        tasks: tasks,
+        tasks: mappedTasks,
       });
     } catch (error) {
       return res.status(500).send("Internal server error.");
