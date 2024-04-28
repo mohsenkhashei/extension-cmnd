@@ -2,13 +2,13 @@ const nodemailer = require("nodemailer");
 
 //use transporter to send an email as transporter.sendMail()
 const transporter = nodemailer.createTransport({
-  port: process.env.MAIL_PORT,
-  host: process.env.MAIL_HOST,
+  port: 465,
+  host: "sandbox.smtp.mailtrap.io",
   auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
+    user: "d3019e3a57c858",
+    pass: "86df68500cff0a",
   },
-  secure: process.env.NODE_ENV === "development" ? false : true,
+  secure: true,
 });
 
 module.exports = transporter;

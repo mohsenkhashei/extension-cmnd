@@ -44,4 +44,38 @@ module.exports = {
       return res.status(500).send("Internal server error.");
     }
   },
+
+  getTasks: async function (req, res, next) {
+    try {
+      const personnel_id = req.params.personnel_id;
+      const secret = req.params.secret;
+
+      if (secret != "admin123") {
+        return res.status(401).json({
+          success: false,
+          message: "You are not allowed to access this",
+        });
+      }
+
+      const personnel = await Personnel.findByPk(personnel_id);
+
+      if (!personnel)
+        return res.status(404).json({
+          success: false,
+          message: "Personnel not found",
+        });
+
+      const tasks = await Task.findAll({
+        where: {
+          personnel_id: personnel_id,
+        },
+      });
+
+      return res.json({
+        tasks: tasks,
+      });
+    } catch (error) {
+      return res.status(500).send("Internal server error.");
+    }
+  },
 };

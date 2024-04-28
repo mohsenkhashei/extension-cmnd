@@ -4,6 +4,11 @@ const ServiceType = require("./ServiceType");
 const Personnel = require("./Personnel");
 
 const Task = sequelize.define("Tasks", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   token: {
     type: DataTypes.UUID,
     allowNull: false,

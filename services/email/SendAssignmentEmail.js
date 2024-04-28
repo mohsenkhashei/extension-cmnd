@@ -1,15 +1,13 @@
 const EmailService = require("./EmailService");
-const path = require("path");
 
 class SendAssignmentEmail extends EmailService {
-  constructor(options = {}) {
-    super(options);
-    this.options = {};
-    this.options.view = path.join(
-      __dirname,
-      "views/emails/send-assignment-email.ejs"
+  constructor(to, body) {
+    super(
+      to,
+      "Send Assignment Email",
+      "views/emails/send-assignment-email.ejs",
+      body
     );
-    this.options.subject = "Send Assignment Email";
   }
 }
 
