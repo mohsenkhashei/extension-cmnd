@@ -1,13 +1,15 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
-const router = require("./router.js");
+const bodyParser = require("body-paser");
 const path = require("path");
-const CustomErrorHandler = require("./middlewares/CustomErrorHandler.js");
+const app = express();
 
 require("dotenv").config({
   path: path.join(__dirname, ".env"),
 });
+
+const router = require("./router.js");
+const CustomErrorHandler = require("./middlewares/CustomErrorHandler.js");
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
