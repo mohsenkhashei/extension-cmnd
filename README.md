@@ -1,6 +1,6 @@
 # extension-cmnd
 
-This project is built during the HACKATHON TRNC 2024.
+This project is built during the HACKATHON TRNC 2024
 
 ## Requirements
 
