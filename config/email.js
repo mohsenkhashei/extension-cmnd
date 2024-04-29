@@ -1,14 +1,14 @@
 const nodemailer = require("nodemailer");
 
+//use transporter to send an email as transporter.sendMail()
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  port: process.env.MAIL_PORT,
+  host: process.env.MAIL_HOST,
   auth: {
-    user: "mustafaguner235@gmail.com",
-    pass: "plaa pbbd jyaz nqae",
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
   },
+  secure: process.env.NODE_ENV === "development" ? false : true,
 });
 
 module.exports = transporter;
