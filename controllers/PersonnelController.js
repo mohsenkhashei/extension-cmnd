@@ -62,7 +62,7 @@ module.exports = {
           <p>Please click on the following link to claim the task:</p>
           <p><a href="${URL}/claim-task?token=${newTask.token}&p_id=${personnel.id}">Claim Task</a></p>`;
 
-        console.log(URL);
+    
         await transporter.sendMail({
           to: personnel.email,
           subject: "New Task Assignment",
