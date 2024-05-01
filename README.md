@@ -1,6 +1,7 @@
 # extension-cmnd
 
 This project is built during the HACKATHON TRNC 2024
+![Flow](./Flow.jpeg)
 
 ## Requirements
 
